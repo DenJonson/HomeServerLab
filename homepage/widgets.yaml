@@ -6,16 +6,17 @@
     memory: true
     cputemp: true
     uptime: true
-    disk: /
+    expanded: false
     refreshInterval: 5000
 
 - datetime:
     text_size: xl
     locale: ru
     format:
-      dateStyle: medium
-      timeStyle: short
+        dateStyle: medium
+        timeStyle: short
 
 - search:
-    provider: duckduckgo
+    provider: google
+    placeholder: "Search the web..."
     target: _blank

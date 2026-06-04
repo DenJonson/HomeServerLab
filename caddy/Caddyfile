@@ -1,34 +1,62 @@
 {
-	# Первый этап: HTTP только внутри Tailscale.
-	# Публичный HTTPS/ACME сейчас не используем.
+	# HTTP is intentionally used behind Tailscale.
+	# Public HTTPS/ACME is out of scope for this command-center stack.
 	auto_https off
 }
 
-# Fallback по MagicDNS/local hostname Raspberry Pi.
+(homelab_headers) {
+	header {
+		X-Robots-Tag "noindex, nofollow"
+	}
+}
+
+# Fallback via Tailscale MagicDNS or a local Raspberry Pi hostname.
 http://{$TAILSCALE_HOST} {
+	import homelab_headers
 	reverse_proxy homepage:3000
 }
 
-# Главная страница мониторинга.
+# Main navigation and status page.
 http://home.{$BASE_DOMAIN} {
+	import homelab_headers
 	reverse_proxy homepage:3000
 }
 
 # Grafana UI.
 http://grafana.{$BASE_DOMAIN} {
+	import homelab_headers
 	reverse_proxy grafana:3000
 }
 
-# Prometheus UI.
-# Важно: Prometheus не публикует ports в compose.
-# Доступ возможен только через Caddy, который слушает Tailscale IP.
+# Prometheus UI. The service does not publish ports in compose; access goes
+# through Caddy, which is bound to the Tailscale address.
 http://prometheus.{$BASE_DOMAIN} {
+	import homelab_headers
 	reverse_proxy prometheus:9090
 }
 
 # Optional Portainer UI.
-# Работает только если запущен:
+# It works only when the admin profile is enabled:
 # docker compose --profile admin up -d portainer
 http://portainer.{$BASE_DOMAIN} {
+	import homelab_headers
 	reverse_proxy portainer:9000
 }
+
+# --------------------------------------------------------------------------
+# External service templates
+# --------------------------------------------------------------------------
+# Keep application services in their own compose projects. Attach their web
+# container to the external homelab_frontend network and add a route here.
+#
+# Example:
+#
+# http://wiki.{$BASE_DOMAIN} {
+# 	import homelab_headers
+# 	reverse_proxy wiki:3000
+# }
+#
+# http://iot.{$BASE_DOMAIN} {
+# 	import homelab_headers
+# 	reverse_proxy iotassistant:3000
+# }

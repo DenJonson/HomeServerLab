@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-OUT_DIR="/opt/homelab/node-exporter/textfile"
+OUT_DIR="${HOMELAB_TEXTFILE_DIR:-/opt/homelab/node-exporter/textfile}"
 OUT_FILE="${OUT_DIR}/raspberrypi_temperature.prom"
 TMP_FILE="${OUT_FILE}.$$"
 
