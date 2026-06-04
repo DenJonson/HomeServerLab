@@ -1,0 +1,22 @@
+# Local environment
+.env
+
+# Runtime data
+caddy/data/
+caddy/config/
+grafana/data/
+prometheus/data/
+portainer/data/
+smart-home/data/
+
+# Generated Prometheus textfile metrics
+node-exporter/textfile/*.prom
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
