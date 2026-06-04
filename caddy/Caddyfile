@@ -1,0 +1,34 @@
+{
+	# Первый этап: HTTP только внутри Tailscale.
+	# Публичный HTTPS/ACME сейчас не используем.
+	auto_https off
+}
+
+# Fallback по MagicDNS/local hostname Raspberry Pi.
+http://{$TAILSCALE_HOST} {
+	reverse_proxy homepage:3000
+}
+
+# Главная страница мониторинга.
+http://home.{$BASE_DOMAIN} {
+	reverse_proxy homepage:3000
+}
+
+# Grafana UI.
+http://grafana.{$BASE_DOMAIN} {
+	reverse_proxy grafana:3000
+}
+
+# Prometheus UI.
+# Важно: Prometheus не публикует ports в compose.
+# Доступ возможен только через Caddy, который слушает Tailscale IP.
+http://prometheus.{$BASE_DOMAIN} {
+	reverse_proxy prometheus:9090
+}
+
+# Optional Portainer UI.
+# Работает только если запущен:
+# docker compose --profile admin up -d portainer
+http://portainer.{$BASE_DOMAIN} {
+	reverse_proxy portainer:9000
+}
