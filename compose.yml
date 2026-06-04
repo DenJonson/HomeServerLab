@@ -1,0 +1,194 @@
+name: homelab-monitoring
+
+services:
+  caddy:
+    image: caddy:2
+    container_name: homelab-caddy
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${TAILSCALE_IP}:80:80"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./caddy/data:/data
+      - ./caddy/config:/config
+    networks:
+      - homelab_frontend
+      - homelab_monitoring
+    depends_on:
+      - homepage
+      - grafana
+      - prometheus
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homelab-homepage
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      TZ: ${TZ}
+      HOMEPAGE_ALLOWED_HOSTS: ${HOMEPAGE_ALLOWED_HOSTS}
+    expose:
+      - "3000"
+    volumes:
+      - ./homepage:/app/config
+    networks:
+      - homelab_frontend
+      - homelab_monitoring
+    depends_on:
+      - docker-socket-proxy
+      - glances
+
+  docker-socket-proxy:
+    image: tecnativa/docker-socket-proxy:latest
+    container_name: homelab-docker-socket-proxy
+    restart: unless-stopped
+    environment:
+      CONTAINERS: 1
+      SERVICES: 1
+      TASKS: 1
+      INFO: 1
+      VERSION: 1
+
+      POST: 0
+      BUILD: 0
+      COMMIT: 0
+      CONFIGS: 0
+      DISTRIBUTION: 0
+      EXEC: 0
+      IMAGES: 0
+      NETWORKS: 0
+      NODES: 0
+      PLUGINS: 0
+      SECRETS: 0
+      SESSION: 0
+      SWARM: 0
+      SYSTEM: 0
+      VOLUMES: 0
+    expose:
+      - "2375"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - homelab_monitoring
+
+  glances:
+    image: nicolargo/glances:latest-full
+    container_name: homelab-glances
+    restart: unless-stopped
+    pid: host
+    environment:
+      TZ: ${TZ}
+      GLANCES_OPT: "-w"
+    expose:
+      - "61208"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/etc/os-release:ro
+    networks:
+      - homelab_monitoring
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: homelab-grafana
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      TZ: ${TZ}
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+      GF_SERVER_DOMAIN: grafana.${BASE_DOMAIN}
+      GF_SERVER_ROOT_URL: "http://grafana.${BASE_DOMAIN}/"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    expose:
+      - "3000"
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - homelab_frontend
+      - homelab_monitoring
+    depends_on:
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: homelab-prometheus
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=14d"
+      - "--storage.tsdb.retention.size=3GB"
+      - "--web.enable-lifecycle"
+    expose:
+      - "9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - homelab_monitoring
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: homelab-node-exporter
+    restart: unless-stopped
+    pid: host
+    command:
+      - "--path.rootfs=/host"
+      - "--collector.textfile.directory=/textfile_collector"
+      - "--web.listen-address=:9100"
+    expose:
+      - "9100"
+    volumes:
+      - /:/host:ro,rslave
+      - ./node-exporter/textfile:/textfile_collector:ro
+    networks:
+      - homelab_monitoring
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: homelab-cadvisor
+    restart: unless-stopped
+    privileged: true
+    expose:
+      - "8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /dev/disk:/dev/disk:ro
+    networks:
+      - homelab_monitoring
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: homelab-portainer
+    restart: unless-stopped
+    profiles:
+      - admin
+    expose:
+      - "9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-data:/data
+    networks:
+      - homelab_frontend
+
+volumes:
+  prometheus-data:
+  portainer-data:
+
+networks:
+  homelab_frontend:
+    name: homelab_frontend
+    driver: bridge
+
+  homelab_monitoring:
+    name: homelab_monitoring
+    driver: bridge
