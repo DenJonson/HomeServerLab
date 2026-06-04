@@ -1,0 +1,21 @@
+---
+- glances:
+    url: http://glances:61208
+    version: 4
+    cpu: true
+    memory: true
+    cputemp: true
+    uptime: true
+    disk: /
+    refreshInterval: 5000
+
+- datetime:
+    text_size: xl
+    locale: ru
+    format:
+      dateStyle: medium
+      timeStyle: short
+
+- search:
+    provider: duckduckgo
+    target: _blank

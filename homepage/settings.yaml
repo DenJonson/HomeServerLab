@@ -1,0 +1,37 @@
+---
+title: Raspberry Pi Homelab
+description: Monitoring dashboard and service navigation
+
+theme: dark
+color: slate
+language: ru
+
+headerStyle: boxed
+statusStyle: dot
+hideVersion: true
+
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: false
+  showSearchSuggestions: false
+
+layout:
+  Infrastructure:
+    style: row
+    columns: 4
+
+  Monitoring:
+    style: row
+    columns: 4
+
+  Admin - Tailscale Only:
+    style: row
+    columns: 4
+
+  External Services:
+    style: row
+    columns: 4
+
+  Documentation:
+    style: row
+    columns: 4
