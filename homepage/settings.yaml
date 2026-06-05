@@ -7,7 +7,7 @@ color: slate
 language: ru
 
 headerStyle: boxed
-statusStyle: dot
+# statusStyle: dot
 hideVersion: true
 
 quicklaunch:

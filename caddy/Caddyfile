@@ -10,8 +10,14 @@
 	}
 }
 
+
+
 # Fallback via Tailscale MagicDNS or a local Raspberry Pi hostname.
 http://{$TAILSCALE_HOST} {
+	import homelab_headers
+	reverse_proxy homepage:3000
+}
+http://{$TAILSCALE_IP} {
 	import homelab_headers
 	reverse_proxy homepage:3000
 }
