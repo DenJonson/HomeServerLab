@@ -55,9 +55,9 @@
 
     - Умный дом:
         icon: mdi-home-automation
-        href: http://homeassistant.raspberry
-        description: Освещение, датчики, автоматизации и управление устройствами. Внешний сервис; Homepage дает только ссылку и проверку доступности.
-        siteMonitor: http://homeassistant.raspberry
+        href: http://192.168.0.102:3000
+        description: Панель управления умным домом
+        siteMonitor: http://ui:3000
 
 - Обслуживание:
     - Homelab Overview:
