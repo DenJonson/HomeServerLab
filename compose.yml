@@ -37,6 +37,7 @@ services:
     networks:
       - homelab_frontend
       - homelab_monitoring
+      - home-public
     depends_on:
       - docker-socket-proxy
       - glances
@@ -91,7 +92,7 @@ services:
       - homelab_monitoring
 
   grafana:
-    image: grafana/grafana-oss:latest
+    image: grafana/grafana-oss:12.3.1-ubuntu
     container_name: homelab-grafana
     restart: unless-stopped
     env_file:
@@ -108,6 +109,7 @@ services:
       - "3000"
     volumes:
       - ./grafana/data:/var/lib/grafana
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
       - ./grafana/provisioning:/etc/grafana/provisioning
     networks:
       - homelab_frontend
@@ -185,6 +187,9 @@ volumes:
   portainer-data:
 
 networks:
+  home-public:
+    external: true
+
   homelab_frontend:
     name: homelab_frontend
     driver: bridge

@@ -1,13 +1,13 @@
 ---
 title: Raspberry Pi Homelab
-description: Monitoring dashboard and service navigation
+description: Панель состояния, навигации и обслуживания
 
 theme: dark
 color: slate
 language: ru
 
 headerStyle: boxed
-statusStyle: dot
+# statusStyle: dot
 hideVersion: true
 
 quicklaunch:
@@ -16,22 +16,18 @@ quicklaunch:
   showSearchSuggestions: false
 
 layout:
-  Infrastructure:
+  Сервисы:
     style: row
     columns: 4
 
-  Monitoring:
+  Обслуживание:
     style: row
     columns: 4
 
-  Admin - Tailscale Only:
+  Система:
     style: row
     columns: 4
 
-  External Services:
-    style: row
-    columns: 4
-
-  Documentation:
+  Документация:
     style: row
     columns: 4

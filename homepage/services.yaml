@@ -1,73 +1,83 @@
 ---
-- Infrastructure:
+- Система:
     - Homepage:
         icon: homepage.png
-        href: http://home.pi.home.arpa
-        description: Главная страница мониторинга и навигации
+        href: http://home.raspberry
+        description: Главная страница навигации, виджетов и статусов homelab.
         server: homelab
         container: homelab-homepage
         siteMonitor: http://homepage:3000
 
     - Caddy:
         icon: caddy.png
-        href: http://home.pi.home.arpa
-        description: Единственная web-точка входа через Tailscale IP
+        description: Единая HTTP-точка входа для локальной сети и Tailscale.
         server: homelab
         container: homelab-caddy
 
-- Monitoring:
     - Grafana:
         icon: grafana.png
-        href: http://grafana.pi.home.arpa
-        description: Dashboards and metrics visualization
+        description: Дашборды по хосту, контейнерам и compose-проектам.
         server: homelab
         container: homelab-grafana
         siteMonitor: http://grafana:3000
 
     - Prometheus:
         icon: prometheus.png
-        href: http://prometheus.pi.home.arpa
-        description: Metrics backend. Не публикуется напрямую.
+        description: Хранилище метрик для Grafana и диагностических запросов.
         server: homelab
         container: homelab-prometheus
         siteMonitor: http://prometheus:9090
 
     - node_exporter:
         icon: prometheus.png
-        href: http://grafana.pi.home.arpa
-        description: Host metrics exporter. Не публикуется напрямую.
+        description: "Метрики Raspberry Pi: CPU, память, диски, сеть и температура."
         server: homelab
         container: homelab-node-exporter
 
     - cAdvisor:
         icon: cadvisor.png
-        href: http://grafana.pi.home.arpa
-        description: Container metrics exporter. Не публикуется напрямую.
+        description: Метрики контейнеров Docker для Prometheus и Grafana.
         server: homelab
         container: homelab-cadvisor
 
     - Glances:
         icon: glances.png
-        href: http://home.pi.home.arpa
-        description: Host status API для виджета Homepage. Не публикуется напрямую.
+        description: Live-виджет состояния Raspberry Pi на верхнем уровне Homepage.
         server: homelab
         container: homelab-glances
 
-- Admin - Tailscale Only:
+- Сервисы:
+    - База знаний:
+        icon: wikijs.png
+        href: http://wiki.raspberry
+        description: Локальная документация, заметки, инструкции и домашние знания. Внешний сервис; Homepage дает только ссылку и проверку доступности.
+        siteMonitor: http://wiki.raspberry
+
+    - Умный дом:
+        icon: mdi-home-automation
+        href: http://homeassistant.raspberry
+        description: Освещение, датчики, автоматизации и управление устройствами. Внешний сервис; Homepage дает только ссылку и проверку доступности.
+        siteMonitor: http://homeassistant.raspberry
+
+- Обслуживание:
+    - Homelab Overview:
+        icon: grafana.png
+        href: http://grafana.raspberry/d/homelab-overview/homelab-overview?orgId=1
+        description: Общий обзор Raspberry Pi, контейнеров и мониторингового стека.
+
+    - Compose Projects:
+        icon: docker.png
+        href: http://grafana.raspberry/d/homelab-overview/homelab-overview?orgId=1&viewPanel=6
+        description: Прямая ссылка на состояние compose-проектов.
+
+    - PromQL:
+        icon: prometheus.png
+        href: http://prometheus.raspberry
+        description: Сырые метрики и PromQL для диагностики.
+
     - Portainer:
         icon: portainer.png
-        href: http://portainer.pi.home.arpa
-        description: Optional Docker admin UI. Запускать только через profile admin.
+        href: http://portainer.raspberry
+        description: Опциональная Docker-админка, доступна только при запуске profile admin.
         server: homelab
         container: homelab-portainer
-
-- External Services:
-    - Wiki.js:
-        icon: wikijs.png
-        href: http://CHANGE_ME_WIKI_HOST:CHANGE_ME_PORT
-        description: Внешний Wiki.js. Только ссылка, не compose-сервис.
-
-    - Smart Home:
-        icon: mdi-home-automation
-        href: http://CHANGE_ME_SMART_HOME_HOST:CHANGE_ME_PORT
-        description: Внешний smart-home UI. Только ссылка, не compose-сервис.

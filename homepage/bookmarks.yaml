@@ -1,32 +1,37 @@
 ---
-- Documentation:
-    - Homepage Docs:
+- Документация:
+    - Homepage:
         - icon: homepage.png
           href: https://gethomepage.dev/
-          description: Homepage configuration
+          target: _blank
+          description: Документация по настройке Homepage
 
-    - Caddy Docs:
+    - Caddy:
         - icon: caddy.png
           href: https://caddyserver.com/docs/
-          description: Reverse proxy documentation
+          target: _blank
+          description: Reverse proxy и маршруты локальных сервисов
 
-    - Prometheus Docs:
-        - icon: prometheus.png
-          href: https://prometheus.io/docs/
-          description: Metrics and PromQL
-
-    - Grafana Docs:
-        - icon: grafana.png
-          href: https://grafana.com/docs/
-          description: Dashboards and provisioning
-
-    - Docker Compose Docs:
+    - Docker Compose:
         - icon: docker.png
           href: https://docs.docker.com/compose/
-          description: Compose reference
+          target: _blank
+          description: Compose-файлы, profiles и сети
 
-- Operations:
-    - Tailscale Admin:
+    - Prometheus:
+        - icon: prometheus.png
+          href: https://prometheus.io/docs/
+          target: _blank
+          description: Метрики, scrape-конфигурация и PromQL
+
+    - Grafana:
+        - icon: grafana.png
+          href: https://grafana.com/docs/
+          target: _blank
+          description: Дашборды, панели и provisioning
+
+    - Tailscale:
         - icon: tailscale.png
           href: https://login.tailscale.com/admin/machines
-          description: Tailnet devices and ACLs
+          target: _blank
+          description: Админ-консоль tailnet, устройства и ACL

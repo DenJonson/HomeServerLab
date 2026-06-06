@@ -1,0 +1,7 @@
+[Unit]
+Description=Write HomeServerLab node_exporter textfile metrics
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/homelab
+ExecStart=/opt/homelab/scripts/update-node-exporter-textfiles.sh
