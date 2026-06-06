@@ -37,6 +37,7 @@ services:
     networks:
       - homelab_frontend
       - homelab_monitoring
+      - home-public
     depends_on:
       - docker-socket-proxy
       - glances
@@ -186,6 +187,9 @@ volumes:
   portainer-data:
 
 networks:
+  home-public:
+    external: true
+
   homelab_frontend:
     name: homelab_frontend
     driver: bridge
