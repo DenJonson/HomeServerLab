@@ -16,15 +16,15 @@ quicklaunch:
   showSearchSuggestions: false
 
 layout:
-  Система:
-    style: row
-    columns: 4
-
   Сервисы:
     style: row
     columns: 4
 
   Обслуживание:
+    style: row
+    columns: 4
+
+  Система:
     style: row
     columns: 4
 
