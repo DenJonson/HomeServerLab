@@ -385,7 +385,7 @@
       "targets": [
         {
           "editorMode": "builder",
-          "expr": "raspberrypi_cpu_temperature_celsius",
+          "expr": "node_thermal_zone_temp",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -591,8 +591,22 @@
             "uid": "prometheus"
           },
           "expr": "raspberrypi_cpu_temperature_celsius",
+          "hide": true,
           "legendFormat": "CPU temp",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "builder",
+          "expr": "node_thermal_zone_temp",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "CPU temp",
@@ -619,5 +633,5 @@
   "timezone": "",
   "title": "Homelab Overview",
   "uid": "homelab-overview",
-  "version": 3
+  "version": 4
 }
