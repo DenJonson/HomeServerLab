@@ -6,8 +6,9 @@ theme: dark
 color: slate
 language: ru
 
+customJS: /config/custom.js
+
 headerStyle: boxed
-# statusStyle: dot
 hideVersion: true
 
 quicklaunch:

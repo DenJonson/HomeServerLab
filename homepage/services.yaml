@@ -55,14 +55,14 @@
 
     - Умный дом:
         icon: mdi-home-automation
-        href: http://192.168.0.102:3000
+        href: http://dynamic-host:3000
         description: Панель управления умным домом
         siteMonitor: http://ui:3000
 
 - Обслуживание:
     - Homelab Overview:
         icon: grafana.png
-        href: http://grafana.raspberry/d/homelab-overview/homelab-overview?orgId=1
+        href: http://dynamic-host:3001/d/homelab-overview/homelab-overview?orgId=1
         description: Общий обзор Raspberry Pi, контейнеров и мониторингового стека.
 
     - Compose Projects:

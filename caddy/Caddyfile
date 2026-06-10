@@ -17,7 +17,7 @@ http://{$TAILSCALE_HOST} {
 	import homelab_headers
 	reverse_proxy homepage:3000
 }
-http://{$TAILSCALE_IP} {
+http://{$LAN_IP} {
 	import homelab_headers
 	reverse_proxy homepage:3000
 }
@@ -29,10 +29,10 @@ http://home.{$BASE_DOMAIN} {
 }
 
 # Grafana UI.
-http://grafana.{$BASE_DOMAIN} {
-	import homelab_headers
-	reverse_proxy grafana:3000
-}
+# http://grafana.{$BASE_DOMAIN} {
+# 	import homelab_headers
+# 	reverse_proxy grafana:3000
+# }
 
 # Prometheus UI. The service does not publish ports in compose; access goes
 # through Caddy, which is bound to the Tailscale address.
@@ -66,3 +66,10 @@ http://portainer.{$BASE_DOMAIN} {
 # 	import homelab_headers
 # 	reverse_proxy iotassistant:3000
 # }
+
+# Fallback
+
+:80 {
+    import homelab_headers
+    reverse_proxy homepage:3000
+}
