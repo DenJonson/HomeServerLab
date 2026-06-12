@@ -507,7 +507,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-GrYlRd"
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
           },
           "custom": {
             "axisBorderShow": true,
@@ -518,7 +519,7 @@
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 20,
+            "fillOpacity": 56,
             "gradientMode": "scheme",
             "hideFrom": {
               "legend": false,
@@ -527,8 +528,11 @@
             },
             "insertNulls": false,
             "lineInterpolation": "stepAfter",
-            "lineWidth": 3,
-            "pointSize": 5,
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 1,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -543,7 +547,11 @@
               "mode": "off"
             }
           },
+          "displayName": "Темп",
           "mappings": [],
+          "max": 65,
+          "min": 40,
+          "noValue": "пук",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -556,7 +564,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "celsius"
         },
         "overrides": []
       },
@@ -633,5 +642,5 @@
   "timezone": "",
   "title": "Homelab Overview",
   "uid": "homelab-overview",
-  "version": 4
+  "version": 5
 }
