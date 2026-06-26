@@ -8,8 +8,9 @@ language: ru
 
 customJS: /config/custom.js
 
-headerStyle: boxed
+headerStyle: clean 
 hideVersion: true
+statusStyle: "badge" 
 
 quicklaunch:
   searchDescriptions: true
@@ -17,15 +18,15 @@ quicklaunch:
   showSearchSuggestions: false
 
 layout:
-  Сервисы:
+  Дополнительные сервисы:
     style: row
     columns: 4
 
-  Обслуживание:
+  Статистика:
     style: row
     columns: 4
 
-  Система:
+  Состояние поднятых систем:
     style: row
     columns: 4
 

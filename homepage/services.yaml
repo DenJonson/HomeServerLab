@@ -1,5 +1,5 @@
 ---
-- Система:
+- Состояние поднятых систем:
     - Homepage:
         icon: homepage.png
         href: http://home.raspberry
@@ -46,12 +46,12 @@
         server: homelab
         container: homelab-glances
 
-- Сервисы:
+- Дополнительные сервисы:
     - База знаний:
-        icon: wikijs.png
-        href: http://wiki.raspberry
-        description: Локальная документация, заметки, инструкции и домашние знания. Внешний сервис; Homepage дает только ссылку и проверку доступности.
-        siteMonitor: http://wiki.raspberry
+        icon: wikipedia.png
+        href: http://dynamic-host:8080
+        description: Персональная база знаний на wiki.js
+        siteMonitor: http://perwiki:3000
 
     - Умный дом:
         icon: mdi-home-automation
@@ -59,25 +59,8 @@
         description: Панель управления умным домом
         siteMonitor: http://ui:3000
 
-- Обслуживание:
+- Статистика:
     - Homelab Overview:
         icon: grafana.png
         href: http://dynamic-host:3001/d/homelab-overview/homelab-overview?orgId=1
         description: Общий обзор Raspberry Pi, контейнеров и мониторингового стека.
-
-    - Compose Projects:
-        icon: docker.png
-        href: http://grafana.raspberry/d/homelab-overview/homelab-overview?orgId=1&viewPanel=6
-        description: Прямая ссылка на состояние compose-проектов.
-
-    - PromQL:
-        icon: prometheus.png
-        href: http://prometheus.raspberry
-        description: Сырые метрики и PromQL для диагностики.
-
-    - Portainer:
-        icon: portainer.png
-        href: http://portainer.raspberry
-        description: Опциональная Docker-админка, доступна только при запуске profile admin.
-        server: homelab
-        container: homelab-portainer

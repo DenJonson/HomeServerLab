@@ -44,10 +44,10 @@ http://prometheus.{$BASE_DOMAIN} {
 # Optional Portainer UI.
 # It works only when the admin profile is enabled:
 # docker compose --profile admin up -d portainer
-http://portainer.{$BASE_DOMAIN} {
-	import homelab_headers
-	reverse_proxy portainer:9000
-}
+# http://portainer.{$BASE_DOMAIN} {
+# 	import homelab_headers
+# 	reverse_proxy portainer:9000
+# }
 
 # --------------------------------------------------------------------------
 # External service templates
