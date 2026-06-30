@@ -22,6 +22,12 @@ scrape_configs:
           - cadvisor:8080
         labels:
           instance: raspberrypi4
+  
+  - job_name: connection-checker
+    static_configs:
+      - targets:
+        - connection-checker:8080
+    
 
   # Raspberry Pi temperature and compose project state are exported through
   # node_exporter's textfile collector by scripts/update-node-exporter-textfiles.sh.

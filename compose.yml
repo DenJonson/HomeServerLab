@@ -136,6 +136,7 @@ services:
       - prometheus-data:/prometheus
     networks:
       - homelab_monitoring
+      - home-public
 
   node-exporter:
     image: prom/node-exporter:latest
